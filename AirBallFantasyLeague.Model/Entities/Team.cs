@@ -1,7 +1,7 @@
 ﻿using System;
 using AirBallFantasyLeague.Model.Entities;
 
-namespace AirBallFantasyLeague.Model
+namespace AirBallFantasyLeague.Model.Entities
 {
     public class Team : Entity
     {
