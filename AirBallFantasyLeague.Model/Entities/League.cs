@@ -15,5 +15,7 @@ namespace AirBallFantasyLeague.Model.Entities
         public int NumberTeams { get; set; }
         public Mode ModeId { get; set; }
         public double CapSpace { get; set;}
+
+        public virtual List<PlayerLeagueSportPosition> PlayerLeaguePositions { get; set; }
     }
 }

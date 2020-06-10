@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AirBallFantasyLeague.Model.Entities
 {
-    public class PlayerLeaguePosition
+    public class PlayerLeagueSportPosition
     {
+        [Key]
+        public long Id { get; set; }
         public int LeagueId { get; set; }
         public int PlayerId { get; set; }
         public int SportPositionId { get; set; }

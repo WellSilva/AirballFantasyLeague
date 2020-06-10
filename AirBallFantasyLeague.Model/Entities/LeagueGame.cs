@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AirBallFantasyLeague.Model.Entities
 {
     public class LeagueGame
     {
+        [Key]
         public long Id { get; set; }
         public long OfficialGameId { get; set; }
         public int HomeTeamId { get; set; }
