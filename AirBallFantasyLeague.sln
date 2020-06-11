@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.Model"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.EntityFramework", "AirBallFantasyLeague.EntityFramework\AirBallFantasyLeague.EntityFramework.csproj", "{B1B67387-DFE9-4117-B6D8-75555F1187CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirBallFantasyLeague.WebApp", "AirBallFantasyLeague.WebApp\AirBallFantasyLeague.WebApp.csproj", "{5AE3E5C9-FE1B-4F50-AAAD-475E14DF9B84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.WebApp", "AirBallFantasyLeague.WebApp\AirBallFantasyLeague.WebApp.csproj", "{5AE3E5C9-FE1B-4F50-AAAD-475E14DF9B84}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirballFantasyLeague.DataAccess", "AirballFantasyLeague.Data\AirballFantasyLeague.DataAccess.csproj", "{4470EEC6-9FC7-4356-A2FC-96603995A3DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirballFantasyLeague.InversionOfControl", "AirballFantasyLeague.InversorOfControl\AirballFantasyLeague.InversionOfControl.csproj", "{71DE2598-7FA8-4F80-B253-1A9A367B9E38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{5AE3E5C9-FE1B-4F50-AAAD-475E14DF9B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AE3E5C9-FE1B-4F50-AAAD-475E14DF9B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AE3E5C9-FE1B-4F50-AAAD-475E14DF9B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4470EEC6-9FC7-4356-A2FC-96603995A3DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4470EEC6-9FC7-4356-A2FC-96603995A3DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4470EEC6-9FC7-4356-A2FC-96603995A3DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4470EEC6-9FC7-4356-A2FC-96603995A3DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71DE2598-7FA8-4F80-B253-1A9A367B9E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71DE2598-7FA8-4F80-B253-1A9A367B9E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71DE2598-7FA8-4F80-B253-1A9A367B9E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71DE2598-7FA8-4F80-B253-1A9A367B9E38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
