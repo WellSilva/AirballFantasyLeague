@@ -7,9 +7,27 @@ namespace AirBallFantasyLeague.EntityFramework
 {
     public class AirBallContext : DbContext
     {
+        private bool InMemory = false;
+        private string InMemoryDatabaseName = "";
+
+        public AirBallContext()
+        {
+
+        }
+
+        public AirBallContext (String InMemoryDBName)
+        {
+            this.InMemory = true;
+            this.InMemoryDatabaseName = InMemoryDBName;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=AirBallFantasy;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            if (this.InMemory)
+            {
+                optionsBuilder.UseInMemoryDatabase(this.InMemoryDatabaseName);
+            }
+            else
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=AirBallFantasy;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

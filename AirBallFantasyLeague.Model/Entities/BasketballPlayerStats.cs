@@ -15,8 +15,8 @@ namespace AirBallFantasyLeague.Model.Entities
         public int Points { get; set; }
         public int Rebounds { get; set; }
         public int Assists { get; set; }
-        public int Steal { get; set; }
-        public int Block { get; set; }
+        public int Steals { get; set; }
+        public int Blocks { get; set; }
         public int Turnover { get; set; }
         public int ThreePoints { get; set; }
 

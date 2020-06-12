@@ -4,14 +4,16 @@ using AirBallFantasyLeague.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirBallFantasyLeague.EntityFramework.Migrations
 {
     [DbContext(typeof(AirBallContext))]
-    partial class AirBallContextModelSnapshot : ModelSnapshot
+    [Migration("20200612155701_AlteredDeletedTimeNullable")]
+    partial class AlteredDeletedTimeNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

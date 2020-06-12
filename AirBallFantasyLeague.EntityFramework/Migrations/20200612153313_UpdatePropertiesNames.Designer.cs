@@ -4,14 +4,16 @@ using AirBallFantasyLeague.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirBallFantasyLeague.EntityFramework.Migrations
 {
     [DbContext(typeof(AirBallContext))]
-    partial class AirBallContextModelSnapshot : ModelSnapshot
+    [Migration("20200612153313_UpdatePropertiesNames")]
+    partial class UpdatePropertiesNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,13 +60,13 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AlteredOn");
+                    b.Property<DateTime>("AlteredOn");
 
                     b.Property<double>("CapSpace");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime?>("DeletedOn");
+                    b.Property<DateTime>("DeletedOn");
 
                     b.Property<string>("Description");
 
@@ -151,11 +153,11 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AlteredOn");
+                    b.Property<DateTime>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime?>("DeletedOn");
+                    b.Property<DateTime>("DeletedOn");
 
                     b.Property<string>("LogoPath");
 
@@ -174,11 +176,11 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.Property<int>("Age");
 
-                    b.Property<DateTime?>("AlteredOn");
+                    b.Property<DateTime>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime?>("DeletedOn");
+                    b.Property<DateTime>("DeletedOn");
 
                     b.Property<int>("OfficialTeamId");
 
@@ -240,11 +242,11 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AlteredOn");
+                    b.Property<DateTime>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime?>("DeletedOn");
+                    b.Property<DateTime>("DeletedOn");
 
                     b.Property<string>("Position");
 
@@ -265,11 +267,11 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AlteredOn");
+                    b.Property<DateTime>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime?>("DeletedOn");
+                    b.Property<DateTime>("DeletedOn");
 
                     b.Property<string>("FirstName");
 
@@ -300,11 +302,11 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AlteredOn");
+                    b.Property<DateTime>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime?>("DeletedOn");
+                    b.Property<DateTime>("DeletedOn");
 
                     b.Property<string>("Name");
 

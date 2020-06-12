@@ -11,7 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.WebApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirballFantasyLeague.DataAccess", "AirballFantasyLeague.Data\AirballFantasyLeague.DataAccess.csproj", "{4470EEC6-9FC7-4356-A2FC-96603995A3DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirballFantasyLeague.InversionOfControl", "AirballFantasyLeague.InversorOfControl\AirballFantasyLeague.InversionOfControl.csproj", "{71DE2598-7FA8-4F80-B253-1A9A367B9E38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirballFantasyLeague.InversionOfControl", "AirballFantasyLeague.InversorOfControl\AirballFantasyLeague.InversionOfControl.csproj", "{71DE2598-7FA8-4F80-B253-1A9A367B9E38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirballFantasyLeague.Tests", "AirballFantasyLeague.Tests\AirballFantasyLeague.Tests.csproj", "{9D059A46-7177-4E20-BB5D-E74A0E1A341A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B1B67387-DFE9-4117-B6D8-75555F1187CE} = {B1B67387-DFE9-4117-B6D8-75555F1187CE}
+		{71DE2598-7FA8-4F80-B253-1A9A367B9E38} = {71DE2598-7FA8-4F80-B253-1A9A367B9E38}
+		{4470EEC6-9FC7-4356-A2FC-96603995A3DE} = {4470EEC6-9FC7-4356-A2FC-96603995A3DE}
+		{DF3AEFDB-55FB-4F0E-A824-56F6EE0DF54F} = {DF3AEFDB-55FB-4F0E-A824-56F6EE0DF54F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,10 @@ Global
 		{71DE2598-7FA8-4F80-B253-1A9A367B9E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DE2598-7FA8-4F80-B253-1A9A367B9E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71DE2598-7FA8-4F80-B253-1A9A367B9E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D059A46-7177-4E20-BB5D-E74A0E1A341A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D059A46-7177-4E20-BB5D-E74A0E1A341A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D059A46-7177-4E20-BB5D-E74A0E1A341A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D059A46-7177-4E20-BB5D-E74A0E1A341A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
