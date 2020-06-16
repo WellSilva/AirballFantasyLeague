@@ -5,29 +5,24 @@ using AirBallFantasyLeague.Model.Entities;
 
 namespace AirBallFantasyLeague.EntityFramework
 {
-    public class AirBallContext : DbContext
+    public class AirBallInMemoryContext : DbContext, IDbContext
     {
-        private bool InMemory = false;
         private string InMemoryDatabaseName = "";
 
-        public AirBallContext()
+        public AirBallInMemoryContext()
         {
 
         }
 
-        public AirBallContext (String InMemoryDBName)
+        //Constructor for tests, using in memory db
+        public AirBallInMemoryContext (String InMemoryDBName)
         {
-            this.InMemory = true;
             this.InMemoryDatabaseName = InMemoryDBName;
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (this.InMemory)
-            {
-                optionsBuilder.UseInMemoryDatabase(this.InMemoryDatabaseName);
-            }
-            else
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=AirBallFantasy;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseInMemoryDatabase(this.InMemoryDatabaseName);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

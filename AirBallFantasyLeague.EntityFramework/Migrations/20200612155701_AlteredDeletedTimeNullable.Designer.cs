@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirBallFantasyLeague.EntityFramework.Migrations
 {
-    [DbContext(typeof(AirBallContext))]
+    [DbContext(typeof(IDbContext))]
     [Migration("20200612155701_AlteredDeletedTimeNullable")]
     partial class AlteredDeletedTimeNullable
     {

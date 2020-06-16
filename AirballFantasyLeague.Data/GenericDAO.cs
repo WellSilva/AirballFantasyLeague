@@ -1,16 +1,16 @@
 ﻿using AirBallFantasyLeague.EntityFramework;
+using AirBallFantasyLeague.IDataAccess;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace AirballFantasyLeague.Data
+namespace AirBallFantasyLeague.Data
 {
-    public class GenericDAO<TEntity> where TEntity : AirBallFantasyLeague.Model.Entity
+    public class GenericDAO<TEntity> : IDataAccess<TEntity> where TEntity : AirBallFantasyLeague.Model.Entity
     {
-        private AirBallContext context;
+        private IDbContext context;
 
-        public GenericDAO (AirBallContext airBallContext)
+        public GenericDAO (IDbContext airBallContext)
         {
             this.context = airBallContext; 
         }
@@ -18,18 +18,19 @@ namespace AirballFantasyLeague.Data
         public TEntity Add (TEntity value)
         {
             var entity = value;
+
             try
             {
-
                 entity.Status = AirBallFantasyLeague.Model.Status.Active;
                 entity.CreatedOn = DateTime.Now;
                 context.Set<TEntity>().Add(entity);
                 context.SaveChanges();
-
-            } catch (Exception ex )
+            }
+            catch (Exception ex)
             {
                 throw (ex);
             }
+
             return entity;
         }
 
@@ -52,22 +53,26 @@ namespace AirballFantasyLeague.Data
             return entity;
         }
 
-        public void Remove (TEntity value)
+        public bool Remove (TEntity value)
         {
             var entity = value;
+            var success = false;
+
             try
             {
-                entity.DeletedOn = DateTime.Now;
                 context.Entry(entity).State = EntityState.Deleted;
                 context.SaveChanges();
+                success = true;
             }
             catch (DbUpdateException ex)
             {
                 throw ex;
             }
+
+            return success;
         }
 
-        public TEntity Get (int Id)
+        public TEntity Get (object Id)
         {
             return context.Set<TEntity>().Find(Id);
         }

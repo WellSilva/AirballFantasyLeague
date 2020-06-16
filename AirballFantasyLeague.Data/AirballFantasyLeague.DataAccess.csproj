@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AirBallFantasyLeague.DataAccess.Interface\AirBallFantasyLeague.IDataAccess.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.EntityFramework\AirBallFantasyLeague.EntityFramework.csproj" />
-    <ProjectReference Include="..\AirballFantasyLeague.InversorOfControl\AirballFantasyLeague.InversionOfControl.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.Model\AirBallFantasyLeague.Model.csproj" />
   </ItemGroup>
 

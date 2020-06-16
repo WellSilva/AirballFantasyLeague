@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AirballFantasyLeague.Data\AirballFantasyLeague.DataAccess.csproj" />
+    <ProjectReference Include="..\AirballFantasyLeague.Data\AirBallFantasyLeague.DataAccess.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.EntityFramework\AirBallFantasyLeague.EntityFramework.csproj" />
   </ItemGroup>
 

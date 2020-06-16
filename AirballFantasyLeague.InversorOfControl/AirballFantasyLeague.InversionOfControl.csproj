@@ -9,6 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AirBallFantasyLeague.DataAccess.Interface\AirBallFantasyLeague.IDataAccess.csproj" />
+    <ProjectReference Include="..\AirballFantasyLeague.Data\AirBallFantasyLeague.DataAccess.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.EntityFramework\AirBallFantasyLeague.EntityFramework.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.Model\AirBallFantasyLeague.Model.csproj" />
   </ItemGroup>

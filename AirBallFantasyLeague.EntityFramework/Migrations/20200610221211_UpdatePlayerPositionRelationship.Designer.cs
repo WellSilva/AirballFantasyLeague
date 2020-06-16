@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirBallFantasyLeague.EntityFramework.Migrations
 {
-    [DbContext(typeof(AirBallContext))]
+    [DbContext(typeof(IDbContext))]
     [Migration("20200610221211_UpdatePlayerPositionRelationship")]
     partial class UpdatePlayerPositionRelationship
     {

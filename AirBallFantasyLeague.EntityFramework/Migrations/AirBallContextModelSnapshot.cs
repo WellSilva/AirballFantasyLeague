@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirBallFantasyLeague.EntityFramework.Migrations
 {
-    [DbContext(typeof(AirBallContext))]
-    partial class AirBallContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(IDbContext))]
+    partial class AirBallInMemoryModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

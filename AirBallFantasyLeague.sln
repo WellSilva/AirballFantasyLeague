@@ -9,17 +9,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.Entity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.WebApp", "AirBallFantasyLeague.WebApp\AirBallFantasyLeague.WebApp.csproj", "{5AE3E5C9-FE1B-4F50-AAAD-475E14DF9B84}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirballFantasyLeague.DataAccess", "AirballFantasyLeague.Data\AirballFantasyLeague.DataAccess.csproj", "{4470EEC6-9FC7-4356-A2FC-96603995A3DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.DataAccess", "AirballFantasyLeague.Data\AirBallFantasyLeague.DataAccess.csproj", "{4470EEC6-9FC7-4356-A2FC-96603995A3DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{95E326D9-EF26-4627-87CC-D57CCF7E34EB} = {95E326D9-EF26-4627-87CC-D57CCF7E34EB}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirballFantasyLeague.InversionOfControl", "AirballFantasyLeague.InversorOfControl\AirballFantasyLeague.InversionOfControl.csproj", "{71DE2598-7FA8-4F80-B253-1A9A367B9E38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.InversionOfControl", "AirballFantasyLeague.InversorOfControl\AirBallFantasyLeague.InversionOfControl.csproj", "{71DE2598-7FA8-4F80-B253-1A9A367B9E38}"
+	ProjectSection(ProjectDependencies) = postProject
+		{95E326D9-EF26-4627-87CC-D57CCF7E34EB} = {95E326D9-EF26-4627-87CC-D57CCF7E34EB}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirballFantasyLeague.Tests", "AirballFantasyLeague.Tests\AirballFantasyLeague.Tests.csproj", "{9D059A46-7177-4E20-BB5D-E74A0E1A341A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.Tests", "AirballFantasyLeague.Tests\AirBallFantasyLeague.Tests.csproj", "{9D059A46-7177-4E20-BB5D-E74A0E1A341A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B1B67387-DFE9-4117-B6D8-75555F1187CE} = {B1B67387-DFE9-4117-B6D8-75555F1187CE}
 		{71DE2598-7FA8-4F80-B253-1A9A367B9E38} = {71DE2598-7FA8-4F80-B253-1A9A367B9E38}
 		{4470EEC6-9FC7-4356-A2FC-96603995A3DE} = {4470EEC6-9FC7-4356-A2FC-96603995A3DE}
 		{DF3AEFDB-55FB-4F0E-A824-56F6EE0DF54F} = {DF3AEFDB-55FB-4F0E-A824-56F6EE0DF54F}
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.IDataAccess", "AirBallFantasyLeague.DataAccess.Interface\AirBallFantasyLeague.IDataAccess.csproj", "{95E326D9-EF26-4627-87CC-D57CCF7E34EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +59,10 @@ Global
 		{9D059A46-7177-4E20-BB5D-E74A0E1A341A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D059A46-7177-4E20-BB5D-E74A0E1A341A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D059A46-7177-4E20-BB5D-E74A0E1A341A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95E326D9-EF26-4627-87CC-D57CCF7E34EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E326D9-EF26-4627-87CC-D57CCF7E34EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95E326D9-EF26-4627-87CC-D57CCF7E34EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95E326D9-EF26-4627-87CC-D57CCF7E34EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
