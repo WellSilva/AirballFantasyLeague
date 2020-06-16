@@ -7,7 +7,6 @@ namespace AirBallFantasyLeague.Model.Entities
 {
     public class League : Entity
     {
-        public string Name { get; set; }
         public string StartDate { get; set; }
         public string LogoPath { get; set; }
         public string Description { get; set; }

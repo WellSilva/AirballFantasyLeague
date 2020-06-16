@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirBallFantasyLeague.EntityFramework.Migrations
 {
-    [DbContext(typeof(IDbContext))]
-    [Migration("20200612153313_UpdatePropertiesNames")]
-    partial class UpdatePropertiesNames
+    [DbContext(typeof(AirBallContext))]
+    [Migration("20200616210451_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,13 +60,15 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AlteredOn");
+                    b.Property<int?>("AlteredById");
+
+                    b.Property<DateTime?>("AlteredOn");
 
                     b.Property<double>("CapSpace");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("DeletedOn");
+                    b.Property<DateTime?>("DeletedOn");
 
                     b.Property<string>("Description");
 
@@ -74,7 +76,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.Property<int>("ModeId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<int>("NumberTeams");
 
@@ -85,6 +88,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlteredById");
 
                     b.ToTable("Leagues");
                 });
@@ -153,17 +158,24 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AlteredOn");
+                    b.Property<int?>("AlteredById");
+
+                    b.Property<DateTime?>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("DeletedOn");
+                    b.Property<DateTime?>("DeletedOn");
 
                     b.Property<string>("LogoPath");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlteredById");
 
                     b.ToTable("OfficialTeams");
                 });
@@ -176,11 +188,18 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.Property<int>("Age");
 
-                    b.Property<DateTime>("AlteredOn");
+                    b.Property<int?>("AlteredById");
+
+                    b.Property<DateTime?>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("DeletedOn");
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<int?>("DraftYear");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<int>("OfficialTeamId");
 
@@ -197,6 +216,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.Property<int>("TeamId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlteredById");
 
                     b.HasIndex("OfficialTeamId");
 
@@ -242,11 +263,16 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AlteredOn");
+                    b.Property<int?>("AlteredById");
+
+                    b.Property<DateTime?>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("DeletedOn");
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("Position");
 
@@ -258,6 +284,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AlteredById");
+
                     b.ToTable("SportPositions");
                 });
 
@@ -267,11 +295,13 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AlteredOn");
+                    b.Property<int?>("AlteredById");
+
+                    b.Property<DateTime?>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("DeletedOn");
+                    b.Property<DateTime?>("DeletedOn");
 
                     b.Property<string>("FirstName");
 
@@ -281,6 +311,9 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.Property<string>("Mascot");
 
+                    b.Property<string>("Name")
+                        .IsRequired();
+
                     b.Property<string>("SecondName");
 
                     b.Property<int>("Status");
@@ -288,6 +321,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlteredById");
 
                     b.HasIndex("LeagueId");
 
@@ -302,11 +337,13 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AlteredOn");
+                    b.Property<int?>("AlteredById");
+
+                    b.Property<DateTime?>("AlteredOn");
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("DeletedOn");
+                    b.Property<DateTime?>("DeletedOn");
 
                     b.Property<string>("Name");
 
@@ -319,6 +356,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlteredById");
 
                     b.ToTable("Users");
                 });
@@ -333,6 +372,13 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.League", b =>
+                {
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
+                        .WithMany()
+                        .HasForeignKey("AlteredById");
                 });
 
             modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.LeagueGame", b =>
@@ -366,8 +412,19 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.OfficialTeam", b =>
+                {
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
+                        .WithMany()
+                        .HasForeignKey("AlteredById");
+                });
+
             modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.Player", b =>
                 {
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
+                        .WithMany()
+                        .HasForeignKey("AlteredById");
+
                     b.HasOne("AirBallFantasyLeague.Model.Entities.OfficialTeam", "OfficialTeam")
                         .WithMany()
                         .HasForeignKey("OfficialTeamId")
@@ -402,8 +459,19 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.SportPosition", b =>
+                {
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
+                        .WithMany()
+                        .HasForeignKey("AlteredById");
+                });
+
             modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.Team", b =>
                 {
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
+                        .WithMany()
+                        .HasForeignKey("AlteredById");
+
                     b.HasOne("AirBallFantasyLeague.Model.Entities.League", "League")
                         .WithMany()
                         .HasForeignKey("LeagueId")
@@ -413,6 +481,13 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.User", b =>
+                {
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
+                        .WithMany()
+                        .HasForeignKey("AlteredById");
                 });
 #pragma warning restore 612, 618
         }

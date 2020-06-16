@@ -13,6 +13,7 @@ namespace AirBallFantasyLeague.Model.Entities
         public bool Retired { get; set; }
         public bool OutSeason { get; set; }
         public int SportId { get; set; }
+        public int? DraftYear { get; set; }
 
         public virtual Sport Sport { get; set; }
         public virtual Team FantasyTeam { get; set; }

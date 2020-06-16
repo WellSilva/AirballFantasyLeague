@@ -21,7 +21,7 @@ namespace AirBallFantasyLeague.Tests
 
                 //seeding db
                 GenericDAO<TEntity> dao = new GenericDAO<TEntity>(context);
-                var entity = dao.Add(new GenericEntity<TEntity>().CreateValidEntry((TEntity)Activator.CreateInstance(typeof(TEntity))));
+                var entity = dao.Add(new GenericEntity<TEntity>().CreateValidEntry());
 
                 //setup
                 var expectedDate = DateTime.Now.ToShortDateString();
@@ -48,7 +48,7 @@ namespace AirBallFantasyLeague.Tests
                 var unexpectedDate = DateTime.Now.ToShortDateString();
                 try
                 {
-                    var entity = dao.Add(new GenericEntity<T>().CreateInvalidEntry((T)Activator.CreateInstance(typeof(T))));
+                    var entity = dao.Add(new GenericEntity<T>().CreateInvalidEntry());
 
                     Assert.IsNull(entity);
                     Assert.AreEqual(0, entity.Id);
@@ -74,7 +74,7 @@ namespace AirBallFantasyLeague.Tests
             {
                 //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
-                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry((T)Activator.CreateInstance(typeof(T))));
+                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
                 var returnedEntity = dao.Save(entity);
 
                 //setup
@@ -97,7 +97,7 @@ namespace AirBallFantasyLeague.Tests
             {
                 //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
-                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry((T)Activator.CreateInstance(typeof(T))));
+                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
 
                 //setup
                 var unexpectedDate = DateTime.Now.ToShortDateString();
@@ -125,13 +125,13 @@ namespace AirBallFantasyLeague.Tests
             }
         }
 
-        public static void RemoveSaveEntitySuccess<T>() where T : Entity
+        public static void RemoveEntitySuccess<T>() where T : Entity
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
                 //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
-                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry((T)Activator.CreateInstance(typeof(T))));
+                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
 
                 var removed = dao.Remove(entity);
 
@@ -149,7 +149,7 @@ namespace AirBallFantasyLeague.Tests
             {
                 //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
-                var entity = new GenericEntity<T>().CreateValidEntry((T)Activator.CreateInstance(typeof(T)));
+                var entity = new GenericEntity<T>().CreateValidEntry();
                 var removed = true;
                 try
                 {
@@ -173,7 +173,7 @@ namespace AirBallFantasyLeague.Tests
             {
                 //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
-                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry((T)Activator.CreateInstance(typeof(T))));
+                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
 
                 //setup
                 var expectedId = 1;
@@ -199,7 +199,7 @@ namespace AirBallFantasyLeague.Tests
                 var returnedEntity = dao.Get(1);
                 Assert.IsNull(returnedEntity); //nothing in the database yet, must return nothing
 
-                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry((T)Activator.CreateInstance(typeof(T))));
+                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
 
                 //setup
                 returnedEntity = dao.Get(2);
@@ -213,7 +213,7 @@ namespace AirBallFantasyLeague.Tests
 
         }
 
-        public static async Task ShouldListAllEntities<T>() where T:Entity
+        public static async Task ListAllEntitiesSuccess<T>() where T:Entity
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
@@ -239,22 +239,22 @@ namespace AirBallFantasyLeague.Tests
         #endregion
 
         #region GenericClass
-        private class GenericEntity<T> where T : class
+        public class GenericEntity<T> where T : class
         {
             public GenericEntity() {
 
             }
-            public T CreateValidEntry (T value) {
+            public T CreateValidEntry () {
 
-                var entity = value;
+                var entity = (T)Activator.CreateInstance(typeof(T));
 
                 try
                 {
-                    foreach (PropertyInfo info in value.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                    foreach (PropertyInfo info in entity.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
                     {
                         if (info.Name != "Id" && info.Name != "CreatedOn" && info.Name != "AlteredOn" && info.Name != "DeletedOn" && info.Name != "Status")
                         {
-                            SetProperty(value, info);
+                            SetProperty(entity, info);
                         }
                     }
                 }catch (Exception)
@@ -265,9 +265,9 @@ namespace AirBallFantasyLeague.Tests
                 return entity;
             }
 
-            public T CreateInvalidEntry(T value)
+            public T CreateInvalidEntry()
             {
-                var entity = value;
+                var entity = (T)Activator.CreateInstance(typeof(T));
 
                 //creates an invalid key 
                 var prop = entity.GetType().GetProperty("Id");
