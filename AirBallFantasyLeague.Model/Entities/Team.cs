@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using AirBallFantasyLeague.Model.Entities;
 
 namespace AirBallFantasyLeague.Model.Entities
 {
     public class Team : Entity
     {
+        [Required]
         public int LeagueId { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }

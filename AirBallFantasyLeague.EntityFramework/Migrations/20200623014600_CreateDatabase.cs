@@ -9,33 +9,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Status = table.Column<int>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    AlteredOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    AlteredById = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true),
-                    UserEmail = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Users_AlteredById",
-                        column: x => x.AlteredById,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Leagues",
                 columns: table => new
                 {
@@ -58,12 +31,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Leagues", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Leagues_Users_AlteredById",
-                        column: x => x.AlteredById,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,17 +45,12 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     AlteredOn = table.Column<DateTime>(nullable: true),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     AlteredById = table.Column<int>(nullable: true),
-                    LogoPath = table.Column<string>(nullable: true)
+                    LogoPath = table.Column<string>(nullable: true),
+                    SportId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OfficialTeams", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OfficialTeams_Users_AlteredById",
-                        column: x => x.AlteredById,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,16 +66,92 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     AlteredById = table.Column<int>(nullable: true),
                     SportId = table.Column<int>(nullable: false),
-                    Position = table.Column<string>(nullable: true),
-                    Sport = table.Column<int>(nullable: false)
+                    Position = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SportPositions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    AlteredOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    AlteredById = table.Column<int>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
+                    UserEmail = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OfficialGames",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Date = table.Column<DateTime>(nullable: false),
+                    SportId = table.Column<int>(nullable: false),
+                    Season = table.Column<int>(nullable: false),
+                    HomeOfficialTeamId = table.Column<int>(nullable: false),
+                    AwayOfficialTeamId = table.Column<int>(nullable: false),
+                    HomeScore = table.Column<int>(nullable: false),
+                    AwayScore = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OfficialGames", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SportPositions_Users_AlteredById",
-                        column: x => x.AlteredById,
-                        principalTable: "Users",
+                        name: "FK_OfficialGames_OfficialTeams_AwayOfficialTeamId",
+                        column: x => x.AwayOfficialTeamId,
+                        principalTable: "OfficialTeams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OfficialGames_OfficialTeams_HomeOfficialTeamId",
+                        column: x => x.HomeOfficialTeamId,
+                        principalTable: "OfficialTeams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    AlteredOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    AlteredById = table.Column<int>(nullable: true),
+                    OfficialTeamId = table.Column<int>(nullable: false),
+                    TeamId = table.Column<int>(nullable: false),
+                    Age = table.Column<int>(nullable: false),
+                    Retired = table.Column<bool>(nullable: false),
+                    OutSeason = table.Column<bool>(nullable: false),
+                    SportId = table.Column<int>(nullable: false),
+                    DraftYear = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Players_OfficialTeams_OfficialTeamId",
+                        column: x => x.OfficialTeamId,
+                        principalTable: "OfficialTeams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -141,12 +179,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 {
                     table.PrimaryKey("PK_Teams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Teams_Users_AlteredById",
-                        column: x => x.AlteredById,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Teams_Leagues_LeagueId",
                         column: x => x.LeagueId,
                         principalTable: "Leagues",
@@ -158,117 +190,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OfficialGames",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Date = table.Column<DateTime>(nullable: false),
-                    SportId = table.Column<int>(nullable: false),
-                    Season = table.Column<int>(nullable: false),
-                    HomeOfficialTeamId = table.Column<int>(nullable: false),
-                    AwayOfficialTeamId = table.Column<int>(nullable: false),
-                    HomeScore = table.Column<int>(nullable: false),
-                    AwayScore = table.Column<int>(nullable: false),
-                    Sport = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OfficialGames", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OfficialGames_OfficialTeams_AwayOfficialTeamId",
-                        column: x => x.AwayOfficialTeamId,
-                        principalTable: "OfficialTeams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_OfficialGames_OfficialTeams_HomeOfficialTeamId",
-                        column: x => x.HomeOfficialTeamId,
-                        principalTable: "OfficialTeams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Players",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false),
-                    Status = table.Column<int>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    AlteredOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    AlteredById = table.Column<int>(nullable: true),
-                    OfficialTeamId = table.Column<int>(nullable: false),
-                    TeamId = table.Column<int>(nullable: false),
-                    Age = table.Column<int>(nullable: false),
-                    Retired = table.Column<bool>(nullable: false),
-                    OutSeason = table.Column<bool>(nullable: false),
-                    SportId = table.Column<int>(nullable: false),
-                    DraftYear = table.Column<int>(nullable: true),
-                    Sport = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Players", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Players_Users_AlteredById",
-                        column: x => x.AlteredById,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Players_OfficialTeams_OfficialTeamId",
-                        column: x => x.OfficialTeamId,
-                        principalTable: "OfficialTeams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Players_Teams_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LeagueGames",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OfficialGameId = table.Column<long>(nullable: false),
-                    HomeTeamId = table.Column<int>(nullable: false),
-                    AwayTeamId = table.Column<int>(nullable: false),
-                    HomeScore = table.Column<int>(nullable: false),
-                    AwayScore = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LeagueGames", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_LeagueGames_Teams_AwayTeamId",
-                        column: x => x.AwayTeamId,
-                        principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_LeagueGames_Teams_HomeTeamId",
-                        column: x => x.HomeTeamId,
-                        principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_LeagueGames_OfficialGames_OfficialGameId",
-                        column: x => x.OfficialGameId,
-                        principalTable: "OfficialGames",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -302,7 +223,7 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -322,29 +243,65 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 {
                     table.PrimaryKey("PK_PlayerLeaguePositions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PlayerLeaguePositions_Users_AlteredById",
-                        column: x => x.AlteredById,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_PlayerLeaguePositions_Leagues_LeagueId",
                         column: x => x.LeagueId,
                         principalTable: "Leagues",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PlayerLeaguePositions_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PlayerLeaguePositions_SportPositions_SportPositionId",
                         column: x => x.SportPositionId,
                         principalTable: "SportPositions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LeagueGames",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OfficialGameId = table.Column<long>(nullable: false),
+                    LeagueId = table.Column<int>(nullable: false),
+                    HomeTeamId = table.Column<int>(nullable: false),
+                    AwayTeamId = table.Column<int>(nullable: false),
+                    HomeScore = table.Column<int>(nullable: false),
+                    AwayScore = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LeagueGames", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LeagueGames_Teams_AwayTeamId",
+                        column: x => x.AwayTeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_LeagueGames_Teams_HomeTeamId",
+                        column: x => x.HomeTeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_LeagueGames_Leagues_LeagueId",
+                        column: x => x.LeagueId,
+                        principalTable: "Leagues",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_LeagueGames_OfficialGames_OfficialGameId",
+                        column: x => x.OfficialGameId,
+                        principalTable: "OfficialGames",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -363,14 +320,14 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 column: "HomeTeamId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LeagueGames_LeagueId",
+                table: "LeagueGames",
+                column: "LeagueId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LeagueGames_OfficialGameId",
                 table: "LeagueGames",
                 column: "OfficialGameId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Leagues_AlteredById",
-                table: "Leagues",
-                column: "AlteredById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OfficialGames_AwayOfficialTeamId",
@@ -381,16 +338,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 name: "IX_OfficialGames_HomeOfficialTeamId",
                 table: "OfficialGames",
                 column: "HomeOfficialTeamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OfficialTeams_AlteredById",
-                table: "OfficialTeams",
-                column: "AlteredById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerLeaguePositions_AlteredById",
-                table: "PlayerLeaguePositions",
-                column: "AlteredById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlayerLeaguePositions_LeagueId",
@@ -408,29 +355,9 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 column: "SportPositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_AlteredById",
-                table: "Players",
-                column: "AlteredById");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Players_OfficialTeamId",
                 table: "Players",
                 column: "OfficialTeamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Players_TeamId",
-                table: "Players",
-                column: "TeamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SportPositions_AlteredById",
-                table: "SportPositions",
-                column: "AlteredById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Teams_AlteredById",
-                table: "Teams",
-                column: "AlteredById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_LeagueId",
@@ -441,11 +368,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 name: "IX_Teams_UserId",
                 table: "Teams",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_AlteredById",
-                table: "Users",
-                column: "AlteredById");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -460,6 +382,9 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 name: "PlayerLeaguePositions");
 
             migrationBuilder.DropTable(
+                name: "Teams");
+
+            migrationBuilder.DropTable(
                 name: "OfficialGames");
 
             migrationBuilder.DropTable(
@@ -469,16 +394,13 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                 name: "SportPositions");
 
             migrationBuilder.DropTable(
-                name: "OfficialTeams");
-
-            migrationBuilder.DropTable(
-                name: "Teams");
-
-            migrationBuilder.DropTable(
                 name: "Leagues");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "OfficialTeams");
         }
     }
 }

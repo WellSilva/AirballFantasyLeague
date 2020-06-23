@@ -7,10 +7,8 @@ namespace AirBallFantasyLeague.Model.Entities
 {
     public class SportPosition : Entity
     {
-        public int SportId { get; set; }
+        public Sport SportId { get; set; }
         public string Position { get; set; }
-
-        public virtual Sport Sport { get; set; }
 
         public virtual List<PlayerLeagueSportPosition> PlayerLeaguePositions { get; set; }
 

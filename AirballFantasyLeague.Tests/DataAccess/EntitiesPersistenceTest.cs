@@ -43,7 +43,7 @@ namespace AirBallFantasyLeague.Tests.DataAccess
         }
 
         [TestMethod]
-        public void ShouldRemoveUser ()
+        public void ShouldRemoveUser()
         {
             GenericUnitTestHelper.RemoveEntitySuccess<User>();
         }
@@ -96,6 +96,7 @@ namespace AirBallFantasyLeague.Tests.DataAccess
         {
             await GenericUnitTestHelper.ListAllEntitiesSuccess<League>();
         }
+
         #endregion
 
         #region Official Team
@@ -122,22 +123,19 @@ namespace AirBallFantasyLeague.Tests.DataAccess
         {
             GenericUnitTestHelper.SaveEntityError<OfficialTeam>();
         }
-        [TestMethod]
-        public void ShoudGetTeam()
-        {
-            GenericUnitTestHelper.GetEntitySuccess<Team>();
-        }
 
         [TestMethod]
-        public void ShouldRemoveTeam()
+        public void ShouldNotRemoveOfficialTeam()
         {
-            GenericUnitTestHelper.RemoveEntitySuccess<Team>();
-        }
+            using (var context = new AirBallInMemoryContext("AirBall"))
+            {
+                var game = CreateMockOfficialGame(context);
 
-        [TestMethod]
-        public async Task ShoudListAllTeams()
-        {
-            await GenericUnitTestHelper.ListAllEntitiesSuccess<Team>();
+                GenericDAO<OfficialTeam> dao = new GenericDAO<OfficialTeam>(context);
+
+                Assert.IsFalse(dao.Remove(game.AwayOfficialTeam));
+                Assert.IsNotNull(game.AwayOfficialTeam);
+            }
         }
         #endregion
 
@@ -186,7 +184,7 @@ namespace AirBallFantasyLeague.Tests.DataAccess
 
         #region Team
         [TestMethod]
-        public void ShouldAddTeam ()
+        public void ShouldAddTeam()
         {
             using (var context = new AirBallInMemoryContext("AirBall"))
             {
@@ -230,7 +228,24 @@ namespace AirBallFantasyLeague.Tests.DataAccess
 
                 context.Database.EnsureDeleted();
             }
+        }
 
+        [TestMethod]
+        public void ShoudGetTeam()
+        {
+            GenericUnitTestHelper.GetEntitySuccess<Team>();
+        }
+
+        [TestMethod]
+        public void ShouldRemoveTeam()
+        {
+            GenericUnitTestHelper.RemoveEntitySuccess<Team>();
+        }
+
+        [TestMethod]
+        public async Task ShoudListAllTeams()
+        {
+            await GenericUnitTestHelper.ListAllEntitiesSuccess<Team>();
         }
 
         private Team CreateMockTeam(IDbContext context)
@@ -247,11 +262,54 @@ namespace AirBallFantasyLeague.Tests.DataAccess
             entity.SecondName = "Mavericks";
             entity.User = user;
             entity.League = league;
-            entity.AlteredBy = user;
+            entity.AlteredById = user.Id;
 
             return entity;
         }
         #endregion
 
+        #region OfficialGame
+        [TestMethod]
+        public void ShouldAddOfficialGame()
+        {
+            using (var context = new AirBallInMemoryContext("AirBall"))
+            {
+                CreateMockOfficialGame(context);
+
+                OfficialGameDAO dao = new OfficialGameDAO(context);
+                var returnedEntity = dao.Get((long)1);
+
+                Assert.IsNotNull(returnedEntity);
+                Assert.AreEqual(1, returnedEntity.Id);
+
+                context.Database.EnsureDeleted();
+            }
+        }
+        private OfficialGame CreateMockOfficialGame(IDbContext context)
+        {
+            OfficialTeam team1 = new GenericUnitTestHelper.GenericEntity<OfficialTeam>().CreateValidEntry();
+            OfficialTeam team2 = new GenericUnitTestHelper.GenericEntity<OfficialTeam>().CreateValidEntry();
+            team2.Name = "Cleveland";
+
+            GenericDAO<OfficialTeam> dTeam = new GenericDAO<OfficialTeam>(context);
+            team1 = dTeam.Add(team1);
+            team2 = dTeam.Add(team2);
+
+            OfficialGame officialGame = new OfficialGame();
+            officialGame.Date = DateTime.Now;
+            officialGame.SportId = Model.Enums.Sport.Basketball;
+            officialGame.Season = 1;
+            officialGame.HomeOfficialTeam = team1;
+            officialGame.HomeOfficialTeamId = team1.Id;
+            officialGame.AwayOfficialTeam = team2;
+            officialGame.AwayOfficialTeamId = team2.Id;
+            officialGame.AwayScore = 0;
+            officialGame.HomeScore = 0;
+
+            OfficialGameDAO dao = new OfficialGameDAO(context);
+            return dao.Add(officialGame);
+        } 
+
+        #endregion
     }
 }

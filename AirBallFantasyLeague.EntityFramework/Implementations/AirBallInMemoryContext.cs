@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using System;
+using System.Linq;
 using AirBallFantasyLeague.Model.Entities;
 
 namespace AirBallFantasyLeague.EntityFramework
@@ -18,6 +19,7 @@ namespace AirBallFantasyLeague.EntityFramework
         public AirBallInMemoryContext (String InMemoryDBName)
         {
             this.InMemoryDatabaseName = InMemoryDBName;
+            this.Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -26,9 +28,32 @@ namespace AirBallFantasyLeague.EntityFramework
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
+
+            base.OnModelCreating(modelBuilder);
+
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                // equivalent of modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+                // and modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+                entityType.GetForeignKeys()
+                    .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade)
+                    .ToList()
+                    .ForEach(fk => fk.DeleteBehavior = DeleteBehavior.Restrict);
+            }
+
             modelBuilder.Entity<BasketballPlayerStats>()
                 .HasKey(c => new { c.PlayerId, c.GameId }
                 );
+
+            modelBuilder.Entity<OfficialTeam>()
+                .HasMany(t => t.AwayOfficialGames)
+                .WithOne().HasForeignKey(g => g.AwayOfficialTeamId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<OfficialTeam>()
+                .HasMany(t => t.HomeOfficialGames)
+                .WithOne().HasForeignKey(g => g.HomeOfficialTeamId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public DbSet<BasketballPlayerStats> BasketballPlayerStats { get; set; }

@@ -16,7 +16,5 @@ namespace AirBallFantasyLeague.Model
         public DateTime? AlteredOn { get; set; }
         public DateTime? DeletedOn { get; set; }
         public int? AlteredById { get; set; }
-
-        public virtual Entities.User AlteredBy { get; set; }
     }
 }

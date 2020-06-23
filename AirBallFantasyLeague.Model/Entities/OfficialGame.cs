@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace AirBallFantasyLeague.Model.Entities
@@ -10,17 +11,19 @@ namespace AirBallFantasyLeague.Model.Entities
     {
         public long Id { get; set; }
         public DateTime Date { get; set; }
-        public int SportId { get; set; }
-
+        public Sport SportId { get; set; }
         public int Season { get; set; }
+        [Required]
         public int HomeOfficialTeamId { get; set; }
+        [Required]
         public int AwayOfficialTeamId { get; set; }
         public int HomeScore { get; set; }
         public int AwayScore { get; set; }
 
-        public virtual OfficialTeam HomeOfficialTeam { get; set; }
-        public virtual OfficialTeam AwayOfficialTeam { get; set; }
-        public virtual Sport Sport { get; set; }
+        [NotMapped]
+        public OfficialTeam HomeOfficialTeam { get; set; }
+        [NotMapped]
+        public OfficialTeam AwayOfficialTeam { get; set; }
 
         public OfficialTeam GetWinner() {
             if (HomeScore > AwayScore)

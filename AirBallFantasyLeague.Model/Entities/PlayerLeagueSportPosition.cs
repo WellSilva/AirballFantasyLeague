@@ -9,8 +9,11 @@ namespace AirBallFantasyLeague.Model.Entities
     {
         [Key]
         public long Id { get; set; }
+        [Required]
         public int LeagueId { get; set; }
+        [Required]
         public int PlayerId { get; set; }
+        [Required]
         public int SportPositionId { get; set; }
         public DateTime CreateTime { get; set; }
         public DateTime AlteredTime { get; set; }
@@ -19,6 +22,5 @@ namespace AirBallFantasyLeague.Model.Entities
         public virtual League League { get; set; }
         public virtual Player Player { get; set; }
         public virtual SportPosition SportPosition { get; set; }
-        public virtual User AlteredBy { get; set; }
     }
 }

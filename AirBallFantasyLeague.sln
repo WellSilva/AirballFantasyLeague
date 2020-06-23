@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.DataAc
 		{95E326D9-EF26-4627-87CC-D57CCF7E34EB} = {95E326D9-EF26-4627-87CC-D57CCF7E34EB}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.InversionOfControl", "AirballFantasyLeague.InversorOfControl\AirBallFantasyLeague.InversionOfControl.csproj", "{71DE2598-7FA8-4F80-B253-1A9A367B9E38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirBallFantasyLeague.CrossCutting", "AirballFantasyLeague.InversorOfControl\AirBallFantasyLeague.CrossCutting.csproj", "{71DE2598-7FA8-4F80-B253-1A9A367B9E38}"
 	ProjectSection(ProjectDependencies) = postProject
 		{95E326D9-EF26-4627-87CC-D57CCF7E34EB} = {95E326D9-EF26-4627-87CC-D57CCF7E34EB}
 	EndProjectSection

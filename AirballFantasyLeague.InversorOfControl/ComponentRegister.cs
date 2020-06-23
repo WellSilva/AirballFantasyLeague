@@ -5,7 +5,7 @@ using Castle.Windsor;
 using System;
 using AirBallFantasyLeague.Model.Entities;
 
-namespace AirBallFantasyLeague.InversorOfControl
+namespace AirBallFantasyLeague.CrossCutting
 {
     public static class ComponentRegister
     {

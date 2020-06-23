@@ -87,8 +87,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlteredById");
-
                     b.ToTable("Leagues");
                 });
 
@@ -106,6 +104,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.Property<int>("HomeTeamId");
 
+                    b.Property<int>("LeagueId");
+
                     b.Property<long>("OfficialGameId");
 
                     b.HasKey("Id");
@@ -113,6 +113,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.HasIndex("AwayTeamId");
 
                     b.HasIndex("HomeTeamId");
+
+                    b.HasIndex("LeagueId");
 
                     b.HasIndex("OfficialGameId");
 
@@ -136,8 +138,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.Property<int>("HomeScore");
 
                     b.Property<int>("Season");
-
-                    b.Property<int>("Sport");
 
                     b.Property<int>("SportId");
 
@@ -169,11 +169,11 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<int>("SportId");
+
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AlteredById");
 
                     b.ToTable("OfficialTeams");
                 });
@@ -205,8 +205,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.Property<bool>("Retired");
 
-                    b.Property<int>("Sport");
-
                     b.Property<int>("SportId");
 
                     b.Property<int>("Status");
@@ -215,11 +213,7 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlteredById");
-
                     b.HasIndex("OfficialTeamId");
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("Players");
                 });
@@ -243,8 +237,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.Property<int>("SportPositionId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AlteredById");
 
                     b.HasIndex("LeagueId");
 
@@ -274,15 +266,11 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.Property<string>("Position");
 
-                    b.Property<int>("Sport");
-
                     b.Property<int>("SportId");
 
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AlteredById");
 
                     b.ToTable("SportPositions");
                 });
@@ -320,8 +308,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlteredById");
-
                     b.HasIndex("LeagueId");
 
                     b.HasIndex("UserId");
@@ -343,7 +329,8 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.Property<DateTime?>("DeletedOn");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("Password");
 
@@ -355,8 +342,6 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlteredById");
-
                     b.ToTable("Users");
                 });
 
@@ -367,16 +352,9 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                         .HasForeignKey("GameId1");
 
                     b.HasOne("AirBallFantasyLeague.Model.Entities.Player", "Player")
-                        .WithMany()
+                        .WithMany("BasketballPlayerStats")
                         .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.League", b =>
-                {
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
-                        .WithMany()
-                        .HasForeignKey("AlteredById");
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.LeagueGame", b =>
@@ -384,108 +362,74 @@ namespace AirBallFantasyLeague.EntityFramework.Migrations
                     b.HasOne("AirBallFantasyLeague.Model.Entities.Team", "AwayTeam")
                         .WithMany()
                         .HasForeignKey("AwayTeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("AirBallFantasyLeague.Model.Entities.Team", "HomeTeam")
                         .WithMany()
                         .HasForeignKey("HomeTeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.League", "League")
+                        .WithMany("LeagueGames")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("AirBallFantasyLeague.Model.Entities.OfficialGame", "OfficialGame")
                         .WithMany()
                         .HasForeignKey("OfficialGameId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.OfficialGame", b =>
                 {
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.OfficialTeam", "AwayOfficialTeam")
-                        .WithMany()
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.OfficialTeam")
+                        .WithMany("AwayOfficialGames")
                         .HasForeignKey("AwayOfficialTeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.OfficialTeam", "HomeOfficialTeam")
-                        .WithMany()
+                    b.HasOne("AirBallFantasyLeague.Model.Entities.OfficialTeam")
+                        .WithMany("HomeOfficialGames")
                         .HasForeignKey("HomeOfficialTeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.OfficialTeam", b =>
-                {
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
-                        .WithMany()
-                        .HasForeignKey("AlteredById");
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.Player", b =>
                 {
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
-                        .WithMany()
-                        .HasForeignKey("AlteredById");
-
                     b.HasOne("AirBallFantasyLeague.Model.Entities.OfficialTeam", "OfficialTeam")
                         .WithMany()
                         .HasForeignKey("OfficialTeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.Team", "FantasyTeam")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.PlayerLeagueSportPosition", b =>
                 {
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
-                        .WithMany()
-                        .HasForeignKey("AlteredById")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("AirBallFantasyLeague.Model.Entities.League", "League")
                         .WithMany("PlayerLeaguePositions")
                         .HasForeignKey("LeagueId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("AirBallFantasyLeague.Model.Entities.Player", "Player")
                         .WithMany("PlayerLeaguePositions")
                         .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("AirBallFantasyLeague.Model.Entities.SportPosition", "SportPosition")
                         .WithMany("PlayerLeaguePositions")
                         .HasForeignKey("SportPositionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.SportPosition", b =>
-                {
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
-                        .WithMany()
-                        .HasForeignKey("AlteredById");
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.Team", b =>
                 {
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
-                        .WithMany()
-                        .HasForeignKey("AlteredById");
-
                     b.HasOne("AirBallFantasyLeague.Model.Entities.League", "League")
-                        .WithMany()
+                        .WithMany("Teams")
                         .HasForeignKey("LeagueId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("AirBallFantasyLeague.Model.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Teams")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AirBallFantasyLeague.Model.Entities.User", b =>
-                {
-                    b.HasOne("AirBallFantasyLeague.Model.Entities.User", "AlteredBy")
-                        .WithMany()
-                        .HasForeignKey("AlteredById");
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
