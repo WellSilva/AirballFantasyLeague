@@ -2,6 +2,7 @@
 using AirBallFantasyLeague.IDataAccess;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AirBallFantasyLeague.Data
@@ -21,8 +22,6 @@ namespace AirBallFantasyLeague.Data
 
             try
             {
-                entity.Status = AirBallFantasyLeague.Model.Status.Active;
-                entity.CreatedOn = DateTime.Now;
                 context.Set<TEntity>().Add(entity);
                 context.SaveChanges();
             }
@@ -39,11 +38,6 @@ namespace AirBallFantasyLeague.Data
             var entity = value;
             try
             {
-                entity.AlteredOn = DateTime.Now;
-
-                if (entity.Status == AirBallFantasyLeague.Model.Status.Deleted)
-                    entity.DeletedOn = DateTime.Now;
-
                 context.Entry(entity).State = EntityState.Modified;
                 context.SaveChanges();
             } catch (DbUpdateException ex)
@@ -77,9 +71,10 @@ namespace AirBallFantasyLeague.Data
             return context.Set<TEntity>().Find(Id);
         }
 
-        public IQueryable<TEntity> All ()
+        public IEnumerable<TEntity> All ()
         {
-            return context.Set<TEntity>().AsNoTracking();
+            return context.Set<TEntity>().ToList();
         }
+
     }
 }

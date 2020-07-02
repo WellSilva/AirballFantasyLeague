@@ -21,38 +21,5 @@ namespace AirBallFantasyLeague.Tests
 
             Assert.AreEqual(expected, result);
         }
-
-        [TestMethod]
-        public void ShouldCreateInMemoryDatabase()
-        {
-            var expected = true;
-            var result = false;
-
-            using (AirBallInMemoryContext context = new AirBallInMemoryContext("AirBall"))
-            {
-                result = context.Database.EnsureCreated();
-            }
-
-            Assert.AreEqual(expected, result);
-        }
-
-        [TestMethod]
-        public void ShouldNotCreateInMemoryDatabase()
-        {
-            var expected = false;
-            var result = false;
-
-            try
-            {
-                using (AirBallInMemoryContext context = new AirBallInMemoryContext())
-                {
-                    result = context.Database.EnsureCreated();
-                }
-            }catch
-            {
-            }
-
-            Assert.AreEqual(expected, result);
-        }
     }
 }

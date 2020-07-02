@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AirBallFantasyLeague.IDataAccess\AirBallFantasyLeague.IDataAccess.csproj" />
+    <ProjectReference Include="..\AirballFantasyLeague.InversorOfControl\AirBallFantasyLeague.CrossCutting.csproj" />
+    <ProjectReference Include="..\AirBallFantasyLeague.Model\AirBallFantasyLeague.Model.csproj" />
+  </ItemGroup>
+
+</Project>

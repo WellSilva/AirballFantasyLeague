@@ -3,6 +3,7 @@ using AirBallFantasyLeague.IDataAccess;
 using AirBallFantasyLeague.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AirBallFantasyLeague.Data
@@ -67,9 +68,9 @@ namespace AirBallFantasyLeague.Data
             return context.Set<OfficialGame>().Find(Id);
         }
 
-        public IQueryable<OfficialGame> All ()
+        public IEnumerable<OfficialGame> All ()
         {
-            return context.Set<OfficialGame>().AsNoTracking();
+            return context.Set<OfficialGame>().ToList();
         }
     }
 }

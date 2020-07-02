@@ -1,14 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AirBallFantasyLeague.Model.Entities;
 using AirBallFantasyLeague.Model;
 using System.Reflection;
 using System;
+using System.Linq;
 using AirBallFantasyLeague.EntityFramework;
 using AirBallFantasyLeague.Data;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using AirBallFantasyLeague.IDataAccess;
 
 namespace AirBallFantasyLeague.Tests
 {
@@ -213,7 +210,7 @@ namespace AirBallFantasyLeague.Tests
 
         }
 
-        public static async Task ListAllEntitiesSuccess<T>() where T:Entity
+        public static void ListAllEntitiesSuccess<T>() where T:Entity
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
@@ -228,9 +225,9 @@ namespace AirBallFantasyLeague.Tests
                 var expectedCount = data.Count;
 
                 //results
-                var returnedData = await dao.All().ToListAsync();
+                var returnedData = dao.All().ToList().Count();
                 Assert.IsNotNull(returnedData);
-                Assert.AreEqual(expectedCount, returnedData.Count);
+                Assert.AreEqual(expectedCount, returnedData);
 
                 //clear database
                 context.Database.EnsureDeleted();
