@@ -9,9 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AirballFantasyLeague.Data\AirBallFantasyLeague.DataAccess.csproj" />
+    <ProjectReference Include="..\AirballFantasyLeague.Data\AirBallFantasyLeague.Data.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.EntityFramework\AirBallFantasyLeague.EntityFramework.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.Model\AirBallFantasyLeague.Model.csproj" />
+    <ProjectReference Include="..\AirBallFantasyLeague.Repository\AirBallFantasyLeague.Repository.csproj" />
+    <ProjectReference Include="..\AirBallFantasyLeague.Services\AirBallFantasyLeague.Services.csproj" />
   </ItemGroup>
 
 </Project>

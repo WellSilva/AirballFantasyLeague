@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wemsi\\Source\\Repos\\AirballFantasyLeague\\AirBallFantasyLeague.Model\\AirBallFantasyLeague.Model.csproj",
+      "projectUniqueName": "D:\\Programacao\\source\\repos\\AirballFantasyLeague\\AirBallFantasyLeague.Model\\AirBallFantasyLeague.Model.csproj",
       "projectName": "AirBallFantasyLeague.Model",
-      "projectPath": "C:\\Users\\wemsi\\Source\\Repos\\AirballFantasyLeague\\AirBallFantasyLeague.Model\\AirBallFantasyLeague.Model.csproj",
+      "projectPath": "D:\\Programacao\\source\\repos\\AirballFantasyLeague\\AirBallFantasyLeague.Model\\AirBallFantasyLeague.Model.csproj",
       "packagesPath": "C:\\Users\\wemsi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wemsi\\Source\\Repos\\AirballFantasyLeague\\AirBallFantasyLeague.Model\\obj\\",
+      "outputPath": "D:\\Programacao\\source\\repos\\AirballFantasyLeague\\AirBallFantasyLeague.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

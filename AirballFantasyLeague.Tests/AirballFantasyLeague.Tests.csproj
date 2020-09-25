@@ -13,12 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="InversionOfControl\" />
     <Folder Include="WebApp\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AirballFantasyLeague.Data\AirBallFantasyLeague.DataAccess.csproj" />
+    <ProjectReference Include="..\AirballFantasyLeague.Data\AirBallFantasyLeague.Data.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.EntityFramework\AirBallFantasyLeague.EntityFramework.csproj" />
   </ItemGroup>
 

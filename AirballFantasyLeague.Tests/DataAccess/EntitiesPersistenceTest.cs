@@ -3,9 +3,6 @@ using AirBallFantasyLeague.EntityFramework;
 using AirBallFantasyLeague.Model.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AirBallFantasyLeague.Tests.DataAccess
 {
@@ -124,22 +121,6 @@ namespace AirBallFantasyLeague.Tests.DataAccess
             GenericUnitTestHelper.SaveEntityError<OfficialTeam>();
         }
 
-        [TestMethod]
-        public void ShouldNotRemoveOfficialTeam()
-        {
-            //just learned it won't work with InMemory database, once the foreign key validation is done only 
-            //in real relational dabatases lol
-
-            //using (var context = new AirBallInMemoryContext("AirBall"))
-            //{
-            //    var game = CreateMockOfficialGame(context);
-
-             //   GenericDAO<OfficialTeam> dao = new GenericDAO<OfficialTeam>(context);
-
-             //   Assert.IsFalse(dao.Remove(game.AwayOfficialTeam));
-             //   Assert.IsNotNull(game.AwayOfficialTeam);
-            //}
-        }
         #endregion
 
         #region Sport Position
@@ -280,7 +261,7 @@ namespace AirBallFantasyLeague.Tests.DataAccess
                 CreateMockOfficialGame(context);
 
                 OfficialGameDAO dao = new OfficialGameDAO(context);
-                var returnedEntity = dao.Get((long)1);
+                var returnedEntity = dao.Get(1);
 
                 Assert.IsNotNull(returnedEntity);
                 Assert.AreEqual(1, returnedEntity.Id);

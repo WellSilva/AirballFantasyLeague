@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AirBallFantasyLeague.IDataAccess\AirBallFantasyLeague.IDataAccess.csproj" />
-    <ProjectReference Include="..\AirballFantasyLeague.InversorOfControl\AirBallFantasyLeague.CrossCutting.csproj" />
+    <ProjectReference Include="..\AirballFantasyLeague.Data\AirBallFantasyLeague.Data.csproj" />
     <ProjectReference Include="..\AirBallFantasyLeague.Model\AirBallFantasyLeague.Model.csproj" />
   </ItemGroup>
 

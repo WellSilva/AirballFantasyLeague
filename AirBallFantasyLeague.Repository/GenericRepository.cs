@@ -1,4 +1,4 @@
-﻿using AirBallFantasyLeague.IDataAccess;
+﻿using AirBallFantasyLeague.Data;
 using AirBallFantasyLeague.Model;
 using System;
 using System.Linq;
@@ -9,9 +9,9 @@ namespace AirBallFantasyLeague.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : Entity
     {
-        private readonly IDataAccess<T> dataAccess;
+        private readonly IDataAccess<T, int> dataAccess;
 
-        public GenericRepository (IDataAccess<T> dao)
+        public GenericRepository (IDataAccess<T, int> dao)
         {
             this.dataAccess = dao;
         }
@@ -32,9 +32,6 @@ namespace AirBallFantasyLeague.Repository
         public T Update (T entity)
         {
             entity.AlteredOn = DateTime.Now;
-
-            //to implement user control
-
             return dataAccess.Save(entity);
         }
 
@@ -42,8 +39,7 @@ namespace AirBallFantasyLeague.Repository
         {
             entity.Status = AirBallFantasyLeague.Model.Status.Active;
             entity.CreatedOn = DateTime.Now;
-
-            //to implement user control
+            entity.AlteredOn = entity.CreatedOn;
 
             return dataAccess.Add(entity);
         }
@@ -52,8 +48,6 @@ namespace AirBallFantasyLeague.Repository
         {
             entity.Status = AirBallFantasyLeague.Model.Status.Deleted;
             entity.AlteredOn = DateTime.Now;
-
-            //to implement user control
 
             var objReturned = dataAccess.Save(entity);
 

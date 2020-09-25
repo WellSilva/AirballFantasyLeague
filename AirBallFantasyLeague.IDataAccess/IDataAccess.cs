@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AirBallFantasyLeague.IDataAccess
 {
-    public interface IDataAccess<TEntity> where TEntity : class
+    public interface IDataAccess<TEntity, TPK> where TEntity : class
     {
         TEntity Add(TEntity entity);
 
@@ -11,10 +11,8 @@ namespace AirBallFantasyLeague.IDataAccess
 
         bool Remove(TEntity entity);
 
-        TEntity Get(object Id);
+        TEntity Get(TPK Id);
 
         IQueryable<TEntity> All();
-
-
     }
 }

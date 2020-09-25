@@ -16,19 +16,19 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball")) {
 
-                //seeding db
                 GenericDAO<TEntity> dao = new GenericDAO<TEntity>(context);
-                var entity = dao.Add(new GenericEntity<TEntity>().CreateValidEntry());
+                var entityTest = new GenericEntity<TEntity>().CreateValidEntry();
+                entityTest.CreatedOn = DateTime.Now;
+                entityTest.AlteredOn = DateTime.Now;
 
-                //setup
+                var entity = dao.Add(entityTest);
+
                 var expectedDate = DateTime.Now.ToShortDateString();
 
-                //results
                 Assert.IsNotNull(entity);
                 Assert.AreNotEqual(0, entity.Id);
                 Assert.AreEqual(expectedDate, entity.CreatedOn.ToShortDateString());
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
         }
@@ -37,12 +37,11 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
-                //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
 
-                //setup
                 bool fail = false;
                 var unexpectedDate = DateTime.Now.ToShortDateString();
+
                 try
                 {
                     var entity = dao.Add(new GenericEntity<T>().CreateInvalidEntry());
@@ -57,10 +56,8 @@ namespace AirBallFantasyLeague.Tests
                     fail = true;
                 }
 
-                //results
                 Assert.IsTrue(fail);
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
         }
@@ -69,21 +66,22 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
-                //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
-                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
+                var entity = new GenericEntity<T>().CreateValidEntry();
+
+                entity.CreatedOn = DateTime.Now;
+                entity.AlteredOn = DateTime.Now;
+                entity = dao.Add(entity);
+
                 var returnedEntity = dao.Save(entity);
 
-                //setup
                 var expectedDate = DateTime.Now.ToShortDateString();
 
-                //results
                 Assert.IsNotNull(entity);
                 Assert.AreEqual(returnedEntity.Id, entity.Id);
                 Assert.IsNotNull(returnedEntity.AlteredOn);
                 Assert.AreEqual(expectedDate, entity.AlteredOn.Value.ToShortDateString());
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
         }
@@ -92,11 +90,9 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
-                //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
                 var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
 
-                //setup
                 var unexpectedDate = DateTime.Now.ToShortDateString();
                 bool fail = false;
 
@@ -114,10 +110,8 @@ namespace AirBallFantasyLeague.Tests
                     fail = true;
                 }
 
-                //results
                 Assert.IsTrue(fail);
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
         }
@@ -126,16 +120,13 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
-                //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
-                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
 
+                var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
                 var removed = dao.Remove(entity);
 
-                //results
                 Assert.IsTrue(removed);
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
         }
@@ -144,7 +135,6 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
-                //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
                 var entity = new GenericEntity<T>().CreateValidEntry();
                 var removed = true;
@@ -159,7 +149,6 @@ namespace AirBallFantasyLeague.Tests
 
                 Assert.IsFalse(removed);
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
         }
@@ -168,19 +157,16 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
-                //seeding db
+
                 GenericDAO<T> dao = new GenericDAO<T>(context);
                 var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
 
-                //setup
                 var expectedId = 1;
                 var returnedEntity = dao.Get(1);
 
-                //results
                 Assert.IsNotNull(returnedEntity);
                 Assert.AreEqual(expectedId, returnedEntity.Id);
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
 
@@ -190,21 +176,15 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
-
-                //seeding db
                 GenericDAO<T> dao = new GenericDAO<T>(context);
                 var returnedEntity = dao.Get(1);
                 Assert.IsNull(returnedEntity); //nothing in the database yet, must return nothing
 
                 var entity = dao.Add(new GenericEntity<T>().CreateValidEntry());
 
-                //setup
                 returnedEntity = dao.Get(2);
-
-                //results
                 Assert.IsNull(returnedEntity);
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
 
@@ -214,22 +194,19 @@ namespace AirBallFantasyLeague.Tests
         {
             using (var context = new AirBallInMemoryContext("Airball"))
             {
-                //seeding db
+
                 GenericDAO<T> dao = new GenericDAO<T>(context);
 
                 List<T> data = new GenericEntity<T>().CreateValidEntries(5);
                 foreach (var obj in data)
                     dao.Add(obj);
 
-                //setup
                 var expectedCount = data.Count;
 
-                //results
                 var returnedData = dao.All().ToList().Count();
                 Assert.IsNotNull(returnedData);
                 Assert.AreEqual(expectedCount, returnedData);
 
-                //clear database
                 context.Database.EnsureDeleted();
             }
         }
